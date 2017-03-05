@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Calculator Layout</title>
+<style>
+    body{
+        background-color: cadetblue;
+    }
+    .container
+    {
+        width:300px;height:450px;border: 1px groove;border-radius:30px;padding:30px;
+        background-color: beige;
+        padding-left: 60px;
+    }
+     .header1
+    {
+        font-family: cursive;
+        color: white;
+        font-size: 70px;
+    
+    }
+    .button {
+    background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+        font-size: 22px;
+         transition: all 0.8s
+}
+    .buttontext
+    {
+    padding: 15px 25px;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;  
+    border-color: black;
+    }
+    .button3 {background-color: #f44336; padding: 15px 15px;}
+    .button5 {padding: 15px 25px;}
+     .button6 {padding: 15px 34px;}
+    .button4 {background-color: #e7e7e7; color: black;} /* Gray */
+    .centered-table {
+   margin-left: auto;
+   margin-right: auto;
+}
+    </style>
+    
+</head>
+    <script>
+        var lastString = ''
+        function calculatepMSign()
+        {
+        //document.calculator.ans.value;
+        }
+        function checkplusMinusSign()
+        {
+            if(document.calculator.ans.value!="")
+            {            
+            var val = eval(document.calculator.ans.value);
+            var value = val*(-1);
+            document.calculator.ans.value=value;
+            lastString = document.calculator.ans.value;
+            }
+         }
+         
+           
+        
+        function checksign(currentButton)
+        {
+            lastString = '';
+            var operators = ['+', '-', '*', '/'];
+            var val = document.calculator.ans.value;
+            if (val.length == 0){
+                document.calculator.ans.value = 0;
+            }
+            var lastChar = val[val.length - 1];
+            if(operators.indexOf(lastChar) > -1 || lastChar == '.'){
+                var length = val.length-1;
+                if (length == 0){
+                    value = val[0]
+                }else{
+                    var value = val.substr(0,length);    
+                    
+                }
+                
+                document.calculator.ans.value=value;
+                    
+            }
+            document.calculator.ans.value+=currentButton.value;
+        }
+        
+        function checkdecimal(currentButton){
+          
+            if(lastString.indexOf(currentButton.value) < 0){
+                setDisplayString(currentButton);
+            }
+            
+        }
+        function setDisplayString(currentButton){
+             var val = document.calculator.ans.value;		
+            if(val.length==1 && lastString==0)		
+                {		
+                   document.calculator.ans.value=currentButton.value;		
+                    lastString=currentButton.value;		
+                }		
+            else{
+            document.calculator.ans.value+=currentButton.value;
+            //below last string is needed to check the repetation of decimal places during decimal check
+            lastString+= currentButton.value;
+            //lastString='';
+            //separate processing for decimal
+            }
+        }
+   
+             
+        function calculate(){
+            var plusMinusDec = ['+', '-', '.'];
+            var multDev = [ '*', '/'];
+            var val = document.calculator.ans.value;
+            var lastChar = val[val.length - 1];
+            if(plusMinusDec.indexOf(lastChar) >= 0){
+                document.calculator.ans.value+='0';
+            }else if(multDev.indexOf(lastChar) >= 0){
+                document.calculator.ans.value+='1';
+            }
+            document.calculator.ans.value=eval(document.calculator.ans.value);
+            //lastString = document.calculator.ans.value;
+        }
+        
+        function clearString(){
+            lastString = '';
+        }
+         
+        
+        
+</script>
+<body>
+<form name="calculator" >
+<h1 class="header1">CREATING A WEB PAGE CALCULATOR </h1>
+<div class="container centered-table">
+	
+       <input  class="buttontext" type="textfield" name="ans" value="" readonly />
+       
+    
+<br>
+   
+       <input class="button button3" type="reset" value="clear" onClick="clearString()"/>
+     <input class="button" type="button" value="=" onClick="calculate()">
+      <input class="button button5" type="button" value="+/-" onClick="checkplusMinusSign()"/>
+    <br>
+          <input class="button button6" type="button" value="/" onClick="checksign(this)"/>
+    <input class="button button6" type="button" value="+" onClick="checksign(this)"/>
+       <input class="button button6" type="button" value="-" onClick="checksign(this)"/>
+    <br>
+         
+<input class="button button6" type="button" value="." onClick="checkdecimal(this)"/>
+      
+       <input class="button button6" type="button" value="0" onClick="setDisplayString(this);">
+    <input class="button button6" type="button" value="*" onClick="checksign(this)"/>
+         
+    <br>
+		
+        <input class="button" type="button" value="1" onClick="setDisplayString(this)"/>
+
+        <input class="button" type="button" value="2" onClick="setDisplayString(this)"/>
+
+        <input class="button" type="button" value="3" onClick="setDisplayString(this)"/>
+       
+				
+        
+
+       
+				
+		<br>		
+	
+	
+	 	  
+        
+
+        <input class="button"  type="button" value="4" onClick="setDisplayString(this)"/>
+
+        <input class="button" type="button" value="5" onClick="setDisplayString(this)"/>
+     <input class="button" type="button" value="6" onClick="setDisplayString(this)">
+    
+        
+		<br>
+        
+       
+
+        <input class="button" type="button" value="7" onClick="setDisplayString(this)">
+
+        <input class="button" type="button" value="8" onClick="setDisplayString(this)">
+
+        <input class="button" type="button" value="9" onClick="setDisplayString(this)">
+  
+
+     
+				
+	</div> 
+	
+		
+
+</form>
+</body>
+
+</html>
